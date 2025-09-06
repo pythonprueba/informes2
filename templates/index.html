@@ -41,7 +41,8 @@
             </div>
 
             <!-- Formulario -->
-            <form id="informe-form" action="/generar" method="post" class="space-y-6">
+            <!-- CAMBIO IMPORTANTE: La acción ahora apunta directamente a la función de Netlify -->
+            <form id="informe-form" action="/.netlify/functions/app/generar" method="post" class="space-y-6">
 
                 <!-- Sección Datos del Paciente -->
                 <div>
@@ -111,7 +112,6 @@
     </div>
 
     <script>
-        // Script para mostrar un indicador de carga al enviar el formulario
         const form = document.getElementById('informe-form');
         const submitBtn = document.getElementById('submit-btn');
         const buttonText = document.getElementById('button-text');
@@ -119,15 +119,12 @@
         const downloadIcon = document.getElementById('icon-download');
 
         form.addEventListener('submit', function() {
-            // Deshabilitar el botón para evitar envíos múltiples
             submitBtn.disabled = true;
-            // Cambiar el texto y mostrar el spinner
             buttonText.textContent = 'Generando...';
             loader.classList.remove('hidden');
             downloadIcon.classList.add('hidden');
         });
 
-        // Opcional: Si la navegación se cancela, reactivar el botón.
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {
                 submitBtn.disabled = false;
@@ -140,3 +137,4 @@
 
 </body>
 </html>
+
