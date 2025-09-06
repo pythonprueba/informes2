@@ -5,7 +5,7 @@
   command = "pip install -r requirements.txt"
   # Directorio donde se encuentran las funciones serverless (tu app de Flask).
   functions = "netlify/functions"
-  # Directorio que Netlify servirá estáticamente.
+  # Directorio que Netlify servirá estáticamente (aunque nuestra regla lo anulará).
   publish = "templates"
 
 [functions]
@@ -14,3 +14,11 @@
     # Incluye la plantilla de Word en el paquete de la función
     # para que el script de Python pueda encontrarla.
     included_files = ["plantilla_informe.docx"]
+
+# --- NUEVA REGLA ---
+# Esta es la sección clave que soluciona el error 404.
+# Le dice a Netlify que envíe todas las peticiones a nuestra función de Flask.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/app/:splat"
+  status = 200
