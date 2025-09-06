@@ -5,12 +5,12 @@ import io
 import os
 from pathlib import Path
 from docxtpl import DocxTemplate
-from netlify_wsgi import make_handler
+# Importamos la nueva librería para manejar la aplicación
+import serverless_wsgi
 
 # --- Configuración para Netlify ---
-# Usamos pathlib para construir rutas relativas al script actual,
-# lo que asegura que funcione correctamente en el entorno de Netlify.
-base_path = Path(__file__).parent.parent.parent # Sube tres niveles desde /netlify/functions/app.py a la raíz
+# Sube tres niveles desde /netlify/functions/app.py a la raíz del proyecto
+base_path = Path(__file__).parent.parent.parent
 template_dir = base_path / 'templates'
 plantilla_path = base_path / "plantilla_informe.docx"
 
@@ -28,7 +28,7 @@ def generar_informe_docx(context):
         hoy = datetime.date.today()
         context['fecha_actual'] = hoy.strftime("%d-%m-%Y")
         
-        # Asigna la fecha del examen (puede ser la actual u otra)
+        # Asigna la fecha del examen (usamos la fecha de hoy por defecto)
         context['fecha_examen'] = hoy.strftime("%d-%m-%Y")
 
         # Calcula la edad a partir de la fecha de nacimiento
@@ -110,6 +110,8 @@ def generar():
         print(f"ERROR en la ruta /generar: {e}")
         return "Ocurrió un error inesperado en el servidor.", 500
 
-# --- Adaptador para Netlify ---
-# Netlify busca un objeto 'handler' para ejecutar la función.
-handler = make_handler(app)
+# --- Adaptador para Netlify (Versión actualizada) ---
+# Esta función es la que Netlify ejecutará.
+def handler(event, context):
+    return serverless_wsgi.handle(app, event, context)
+
