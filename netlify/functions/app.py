@@ -6,14 +6,12 @@ from pathlib import Path
 from docxtpl import DocxTemplate
 import serverless_wsgi
 
-# --- Configuración para Netlify ---
-# La función se ejecuta desde un directorio base.
-# Los 'included_files' se colocan en el mismo directorio que este script.
+# --- Configuración Robusta para Netlify ---
+# La función se ejecuta desde un directorio base. Los 'included_files'
+# (como nuestra plantilla) se colocan en el mismo directorio que este script.
 base_path = Path(__file__).parent
 plantilla_path = base_path / "plantilla_informe.docx"
 
-# El nombre de la app de Flask y el template_folder ya no son necesarios
-# porque Netlify servirá el HTML directamente.
 app = Flask(__name__)
 
 def generar_informe_docx(context):

@@ -15,11 +15,12 @@
     # para que el script de Python pueda encontrarla.
     included_files = ["plantilla_informe.docx"]
 
-# --- NUEVA REGLA DE REDIRECCIÓN ---
-# Esto le dice a Netlify que cualquier petición a "/generar"
-# debe ser manejada por la función 'app' en su ruta '/generar'.
+# --- REGLA DE REESCRITURA (REWRITE) ---
+# Esta es la sección clave para solucionar el error 404.
+# Le dice a Netlify que cualquier petición a "/generar" debe ser manejada
+# por la función 'app' en su ruta '/generar', sin cambiar la URL en el navegador.
 [[redirects]]
   from = "/generar"
   to = "/.netlify/functions/app/generar"
-  status = 200 # Un status 200 lo convierte en una reescritura (rewrite) en lugar de una redirección.
+  status = 200 # Un status 200 lo convierte en una reescritura (rewrite).
 
