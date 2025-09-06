@@ -1,0 +1,16 @@
+# Este archivo le dice a Netlify cómo construir y desplegar tu sitio.
+
+[build]
+  # Comando para instalar las dependencias de Python.
+  command = "pip install -r requirements.txt"
+  # Directorio donde se encuentran las funciones serverless (tu app de Flask).
+  functions = "netlify/functions"
+  # Directorio que Netlify servirá estáticamente.
+  publish = "templates"
+
+[functions]
+  # Configuración específica para la función principal.
+  [functions."app"]
+    # Incluye la plantilla de Word en el paquete de la función
+    # para que el script de Python pueda encontrarla.
+    included_files = ["plantilla_informe.docx"]

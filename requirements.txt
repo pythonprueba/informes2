@@ -1,0 +1,5 @@
+# Lista de paquetes de Python que Netlify necesita instalar.
+Flask>=2.0
+python-docx
+docxtpl>=0.16.0
+netlify-wsgi>=0.2.0
